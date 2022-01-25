@@ -10,12 +10,26 @@ import {
 } from "react-router-dom";
 import DailyPuzzle from './components/DailyPuzzle';
 import Scoreboard from './components/Scoreboard';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
 
   return (
 
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <ChakraProvider>
         <Navbar />
         <Routes>
