@@ -1,24 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import { ChakraProvider } from '@chakra-ui/react'
+import { render } from "react-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+import DailyPuzzle from './components/DailyPuzzle';
+import Scoreboard from './components/Scoreboard';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div>
+      <ChakraProvider>
+        <Navbar />
+        <Routes>
+          {/* different pages */}
+          <Route
+            path="/"
+            element={
+              <DailyPuzzle />
+            }
+          />
+          <Route
+            path="scoreboard"
+            element={<Scoreboard />}
+          />
+        </Routes>
+      </ChakraProvider>
     </div>
   );
 }
