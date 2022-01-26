@@ -2,7 +2,7 @@ import React from 'react';
 
 function Scoreboard() {
     return <div>
-        <p>Scoreboard</p>
+        <p>Under construction...</p>
     </div>;
 }
 

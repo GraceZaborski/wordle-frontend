@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import { Button, Flex, VStack, StackDivider, Box, HStack, AvatarGroupProps, useDisclosure, Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader } from "@chakra-ui/react";
+// import React, { useState, useCallback, useEffect } from 'react';
+import { Button, VStack, Box, HStack, useDisclosure, Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader } from "@chakra-ui/react";
 import { toast } from "react-toastify";
-import { isDisabled } from '@chakra-ui/utils';
 import axios from "axios";
-import { setSourceMapRange } from 'typescript';
+import { baseUrl } from '../../App'
+import IProgress from '../../interfaces/IProgress'
+import React, { useState, useCallback, useEffect } from 'react';
+
 
 const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm']
 //How to avoid using three lines of letters? 
@@ -18,34 +20,60 @@ interface KeyboardInterface {
     wordList: string[]
     enter: boolean
     setEnter: (arg: boolean) => void
-    setWordArray: any
-    //([...string[], word: string]) => void: any
+    setWordArray: (arg: string[]) => void
     wordArray: string[]
     currentUser: number
 }
 
-const baseUrl = "http://localhost:4000"
 const dailyWord = "which"
 
+function Keyboard({ word, setWord, wordList, wordArray, setWordArray, currentUser }: KeyboardInterface) {
+    const [progress, setProgress] = useState<IProgress[]>([])
 
-function Keyboard({ word, setWord, wordList, enter, setEnter, wordArray, setWordArray, currentUser }: KeyboardInterface) {
-    const [letter, setLetter] = useState<string>("")
-    const [modalState, setModalState] = useState<boolean>(false);
+    // const openModal = () => {
+    //     if (user[0].complete === true) {
+    //         onOpen()
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     openModal()
+    // }, [user])
+
+
+    const baseUrl = "http://localhost:4000"
+
+    const getUsersGuesses = useCallback(
+        async (endpoint: string) => {
+            console.log('runnin')
+            console.log("current user" + currentUser)
+            let guessedWords = []
+            const res = await axios.get(`${baseUrl}/${endpoint}/${currentUser}`);
+            console.log("res" + res)
+            setProgress(res.data.data)
+            for (let object of res.data.data) {
+                console.log(object.word)
+                guessedWords.push(object.word)
+            }
+            setWordArray(wordArray.concat(guessedWords))
+            console.log(wordArray)
+        }, [currentUser])
+
+    useEffect(() => {
+        getUsersGuesses("words")
+    }, [getUsersGuesses, currentUser])
 
 
     const postScore = async (endpoint: string) => {
         const score = wordArray.length + 1
         const reqBody = { score }
         const res = await axios.put(`${baseUrl}/${endpoint}/${currentUser}`, reqBody);
-        console.log(res)
     }
 
-    // const postWord =  async (endpoint: string) => {
-    //       const res = await axios.get(`${baseUrl}/${endpoint}/${newGuessRow}`, reqBody);
-    //       setUsers(res.data.data);
-    //       console.log(users)
-    //       setEnter(false)
-    //     }
+    const postWord = async (endpoint: string) => {
+        const reqBody = { word }
+        const res = await axios.post(`${baseUrl}/${endpoint}/${currentUser}`, reqBody);
+    }
 
     //toast function
     const showToastError = (str: string) => {
@@ -53,7 +81,6 @@ function Keyboard({ word, setWord, wordList, enter, setEnter, wordArray, setWord
     };
 
     const handleClickLetter = (letter: string) => {
-        console.log(currentUser)
         if (currentUser === 0) {
             showToastError("Sign in to play")
         }
@@ -68,10 +95,8 @@ function Keyboard({ word, setWord, wordList, enter, setEnter, wordArray, setWord
     //modal code
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-
     const handleClickEnter = async (word: string) => {
-        const isWord = await wordList.includes(word)
-        console.log(word, wordArray)
+        const isWord = wordList.includes(word)
         if (word === dailyWord) {
             setWordArray([...wordArray, word])
             setWord("")
@@ -79,14 +104,13 @@ function Keyboard({ word, setWord, wordList, enter, setEnter, wordArray, setWord
             setTimeout(() => {
                 onOpen()
             }, 500)
-            //set boolean complete to true
         }
         else if (!isWord) {
             showToastError("Word not recognised")
-            // postWord("words")
         } else {
             setWordArray([...wordArray, word])
-            setEnter(true)
+            postWord("words")
+            // setEnter(true)
             setWord("")
         }
     }

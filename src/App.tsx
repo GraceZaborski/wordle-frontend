@@ -17,38 +17,17 @@ import { IUser } from "./interfaces/IUser"
 import { GuessedWords } from './interfaces/IGuessedWords'
 
 
-const baseUrl = "http://localhost:4000"
+export const baseUrl = "http://localhost:4000"
 
 
 function App() {
   const [word, setWord] = useState<string>("")
   const [users, setUsers] = useState<IUser[]>([])
   const [currentUser, setCurrentUser] = useState<number>(0)
-  const [guessedWords, setGuessedWords] = useState<GuessedWords[]>([])
   const [enter, setEnter] = useState<boolean>(false)
   const [wordArray, setWordArray] = useState<string[]>([])
 
-
-  const getWords = useCallback(
-    async (endpoint: string) => {
-      const res = await axios.get(`${baseUrl}/${endpoint}/${currentUser}`);
-      setGuessedWords(res.data.data);
-      console.log(guessedWords)
-
-    },
-    [baseUrl, currentUser, enter]
-  );
-
-  // async function getUsers(endpoint: string) {
-  //   try {
-  //     const response = await axios.get('users');
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-
+  //get all users for dropdown
   const getUsers = useCallback(
     async (endpoint: string) => {
       const res = await axios.get(`${baseUrl}/${endpoint}`);
@@ -58,19 +37,9 @@ function App() {
     [baseUrl]
   );
 
-  // async function getUsers(endpoint: string) {
-  //   try {
-  //     const response = await axios.get('users');
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
   useEffect(() => {
     getUsers("users")
-    getWords("words")
-  }, [getUsers, getWords])
+  }, [getUsers])
 
   return (
 
@@ -87,18 +56,19 @@ function App() {
         pauseOnHover
       />
       <ChakraProvider>
-        <Navbar users={users} setCurrentUser={setCurrentUser} />
+        <Navbar
+          users={users}
+          setCurrentUser={setCurrentUser}
+          setWordArray={setWordArray}
+          currentUser={currentUser} />
         <Routes>
-          {/* different pages */}
           <Route
             path="/"
             element={
               <DailyPuzzle
                 word={word}
                 setWord={setWord}
-                // users={users}
                 currentUser={currentUser}
-                guessedWords={guessedWords}
                 enter={enter}
                 setEnter={setEnter}
                 wordArray={wordArray}

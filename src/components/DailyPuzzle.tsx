@@ -3,36 +3,30 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Keyboard from './DailyPuzzle/Keyboard'
 import OutputGrid from './DailyPuzzle/OutputGrid';
 import { wordList } from '.././data/data'
-import { GuessedWords } from '.././interfaces/IGuessedWords'
-
-
-const dailyDummyWord = "punch"
-const baseUrl = "http://localhost:4000"
-
+import axios from "axios";
+import IProgress from '../interfaces/IProgress'
+// import { baseUrl } from '.././App'
 
 interface DailyPuzzleInterface {
-    word: string,
-    setWord: (arg: string) => void,
-    currentUser: number,
-    guessedWords: GuessedWords[]
-    enter: boolean,
+    word: string
+    setWord: (arg: string) => void
+    currentUser: number
+    enter: boolean
     setEnter: (arg: boolean) => void
-    setWordArray: any
+    setWordArray: (arg: string[]) => void
     wordArray: string[]
 }
 
-function DailyPuzzle({ word, setWord, guessedWords, enter, setEnter, wordArray, setWordArray, currentUser }: DailyPuzzleInterface) {
-    const [submittedWord, setSubmittedWord] = useState<string[]>([])
+function DailyPuzzle({ word, setWord, enter, setEnter, wordArray, setWordArray, currentUser }: DailyPuzzleInterface) {
 
 
     return <div>
         <VStack>
             <Box h='550px' pt={50}>
                 <OutputGrid
-                    submittedWord={submittedWord}
-                    guessedWords={guessedWords}
                     word={word}
-                    wordArray={wordArray} />
+                    wordArray={wordArray}
+                    currentUser={currentUser} />
             </Box>
             <Spacer />
             <Box>

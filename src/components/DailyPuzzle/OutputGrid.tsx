@@ -1,26 +1,23 @@
 import { Box, VStack } from '@chakra-ui/react';
-import React from 'react';
-import { GuessedWords } from '../../interfaces/IGuessedWords'
+import React, { useEffect } from 'react';
 
 interface OutputGridInterface {
-    submittedWord: string[]
-    guessedWords: GuessedWords[]
     word: string
     wordArray: string[]
+    currentUser: number
 }
 
-
 function OutputGrid(props: OutputGridInterface) {
-    const { guessedWords, word, wordArray } = props
+    const { word, wordArray, currentUser } = props
 
     const dailyWord = "which"
-
 
     let grid = document.getElementById('grid') as HTMLElement
     buildGrid()
     updateGrid()
 
     function buildGrid() {
+        console.log('building grid')
         if (grid) {
             for (let i = 0; i < 6; i++) {
                 let row = document.createElement('div')
@@ -36,6 +33,7 @@ function OutputGrid(props: OutputGridInterface) {
     }
 
     function updateGrid() {
+        console.log('upgrading grid')
         if (grid) {
             let row = grid.firstChild
             for (let attempt of wordArray) {
@@ -45,9 +43,23 @@ function OutputGrid(props: OutputGridInterface) {
                 }
             }
             drawAttempt(row, word, true)
+            for (let i = wordArray.length; i < 6; i++) {
+                if (row) {
+                    updateWhiteSpace(row)
+                    row = row.nextSibling
+                }
+            }
         }
     }
 
+    function updateWhiteSpace(row: any) {
+        console.log('updating white spaces')
+        for (let i = 0; i < 5; i++) {
+            let cell = row.children[i]
+            cell.textContent = ""
+            cell.style.backgroundColor = '#FFFFFF'
+        }
+    }
 
 
     function drawAttempt(row: any, attempt: string, isCurrent: boolean) {
@@ -58,7 +70,9 @@ function OutputGrid(props: OutputGridInterface) {
                 cell.style.backgroundColor = getBgColor(attempt, i)
             } else {
                 // lol
-                cell.innerHTML = '<div style="opacity: 0">X</div>'
+                cell.style.backgroundColor = '#FFFFFF'
+                cell.textContent = ''
+                // cell.innerHTML = '<div style="opacity: 0">X</div>'
             }
         }
     }
@@ -87,11 +101,3 @@ function OutputGrid(props: OutputGridInterface) {
 }
 
 export default OutputGrid;
-
-{/* <Box >
-                    <p>{word}</p>
-                    {wordArray.map(word =>
-                        word.split("").map(letter =>
-                            <p>{letter}</p>)
-                    )}
-                </Box> */}

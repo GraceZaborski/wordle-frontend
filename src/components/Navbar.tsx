@@ -6,17 +6,23 @@ import { IUser } from ".././interfaces/IUser"
 interface NavbarInterface {
     users: IUser[]
     setCurrentUser: (arg: number) => void
+    setWordArray: (arg: string[]) => void
+    currentUser: number
 }
 
-function Navbar({ users, setCurrentUser }: NavbarInterface) {
+function Navbar({ users, setCurrentUser, setWordArray, currentUser }: NavbarInterface) {
     const location = useLocation();
 
     const handleUserClick = (user: string) => {
+        setWordArray([])
+        console.log('resetting word array')
+        //rethink this
         for (let object of users) {
             if (object.username === user) {
                 setCurrentUser(object.id)
             }
         }
+        console.log("currentUser in Navbar" + currentUser)
     }
 
     return (
@@ -28,11 +34,6 @@ function Navbar({ users, setCurrentUser }: NavbarInterface) {
                     <Box>
                         <Link
                             to="/"
-                        //   className={
-                        //     "link nav-link " +
-                        //     `${location.pathname === "/" ? "active" : ""}`
-                        //   }
-                        //   data-cy="home-page-click"
                         >
                             Daily Puzzle
                         </Link>
@@ -41,11 +42,6 @@ function Navbar({ users, setCurrentUser }: NavbarInterface) {
                     <Box>
                         <Link
                             to="scoreboard"
-                        //   className={
-                        //     "link nav-link " +
-                        //     `${location.pathname === "/study-list" ? "active" : ""}`
-                        //   }
-                        //   data-cy="study-list-page-click"
                         >
                             Scoreboard
                         </Link>
@@ -53,18 +49,9 @@ function Navbar({ users, setCurrentUser }: NavbarInterface) {
                 </HStack>
                 <Spacer />
                 <HStack
-                    // flex={{ base: 1, md: 0 }}
                     jutsify={{ md: 'flex-end' }}
                     direction={'row'}
                     spacing={6}>
-                    {/* <Button
-                        as={'a'}
-                        fontSize={'sm'}
-                        fontWeight={400}
-                        variant={'link'}
-                        href={'#'}>
-                        Sign In
-                    </Button> */}
                     <Select placeholder='Sign in'
                         display={{ base: 'none', md: 'inline-flex' }}
                         fontSize={'md'}
