@@ -1,20 +1,22 @@
 import { Container, Flex, Box, Heading, Spacer, HStack, Button, Stack, Select } from "@chakra-ui/react";
 import { render } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
+import { IUser } from ".././interfaces/IUser"
 
-const dummyUsers = [
-    { id: 1, username: "Harry" },
-    { id: 2, username: "Kate" },
-    { id: 3, username: "Meghan" },
-]
+interface NavbarInterface {
+    users: IUser[]
+    setCurrentUser: (arg: number) => void
+}
 
-
-
-function Navbar() {
+function Navbar({ users, setCurrentUser }: NavbarInterface) {
     const location = useLocation();
 
-    const handleUserClick = (username: string) => {
-        console.log(username)
+    const handleUserClick = (user: string) => {
+        for (let object of users) {
+            if (object.username === user) {
+                setCurrentUser(object.id)
+            }
+        }
     }
 
     return (
@@ -75,11 +77,11 @@ function Navbar() {
                         }}
                         onChange={(e) => handleUserClick(e.target.value)}
                     >
-                        {dummyUsers.map(dummyUser => (
+                        {users.map(user => (
                             <option
-                                key={dummyUser.id}
-                                value={dummyUser.username}
-                            >{dummyUser.username}</option>
+                                key={user.id}
+                                value={user.username}
+                            >{user.username}</option>
                         ))}
                     </Select>
                 </HStack>
