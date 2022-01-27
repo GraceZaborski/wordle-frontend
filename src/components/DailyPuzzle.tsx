@@ -1,11 +1,7 @@
 import { VStack, Spacer, Box } from '@chakra-ui/react';
-import React, { useState, useCallback, useEffect } from 'react';
 import Keyboard from './DailyPuzzle/Keyboard'
 import OutputGrid from './DailyPuzzle/OutputGrid';
 import { wordList } from '.././data/data'
-import axios from "axios";
-import IProgress from '../interfaces/IProgress'
-// import { baseUrl } from '.././App'
 
 interface DailyPuzzleInterface {
     word: string
@@ -25,8 +21,7 @@ function DailyPuzzle({ word, setWord, enter, setEnter, wordArray, setWordArray, 
             <Box h='550px' pt={50}>
                 <OutputGrid
                     word={word}
-                    wordArray={wordArray}
-                    currentUser={currentUser} />
+                    wordArray={wordArray} />
             </Box>
             <Spacer />
             <Box>

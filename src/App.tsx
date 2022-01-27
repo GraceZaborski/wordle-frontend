@@ -2,9 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import { ChakraProvider } from '@chakra-ui/react'
-import { render } from "react-dom";
 import {
-  BrowserRouter,
   Routes,
   Route
 } from "react-router-dom";
@@ -14,10 +12,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { IUser } from "./interfaces/IUser"
-import { GuessedWords } from './interfaces/IGuessedWords'
 
 
-export const baseUrl = "http://localhost:4000"
+const baseUrl = "http://localhost:4000"
 
 
 function App() {
@@ -32,9 +29,7 @@ function App() {
     async (endpoint: string) => {
       const res = await axios.get(`${baseUrl}/${endpoint}`);
       setUsers(res.data.data);
-      console.log(users)
-    },
-    [baseUrl]
+    }, []
   );
 
   useEffect(() => {

@@ -1,13 +1,13 @@
 // import React, { useState, useCallback, useEffect } from 'react';
-import { Button, VStack, Box, HStack, useDisclosure, Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader } from "@chakra-ui/react";
+import { Button, VStack, Box, HStack, useDisclosure, Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalContent, ModalHeader } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { baseUrl } from '../../App'
+// import { baseUrl } from '../../App'
 import IProgress from '../../interfaces/IProgress'
 import React, { useState, useCallback, useEffect } from 'react';
 
 
-const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm']
+// const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm']
 //How to avoid using three lines of letters? 
 const firstLine = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
 const secondLine = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
@@ -29,6 +29,8 @@ const dailyWord = "which"
 
 function Keyboard({ word, setWord, wordList, wordArray, setWordArray, currentUser }: KeyboardInterface) {
     const [progress, setProgress] = useState<IProgress[]>([])
+
+    console.log("Progress:" + progress)
 
     // const openModal = () => {
     //     if (user[0].complete === true) {
@@ -56,7 +58,8 @@ function Keyboard({ word, setWord, wordList, wordArray, setWordArray, currentUse
                 guessedWords.push(object.word)
             }
             setWordArray(wordArray.concat(guessedWords))
-            console.log(wordArray)
+            //how to solve below problem: setWordArray and wordArray must be included as dependencies?
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [currentUser])
 
     useEffect(() => {
@@ -68,11 +71,13 @@ function Keyboard({ word, setWord, wordList, wordArray, setWordArray, currentUse
         const score = wordArray.length + 1
         const reqBody = { score }
         const res = await axios.put(`${baseUrl}/${endpoint}/${currentUser}`, reqBody);
+        console.log("postScore res:" + res)
     }
 
     const postWord = async (endpoint: string) => {
         const reqBody = { word }
         const res = await axios.post(`${baseUrl}/${endpoint}/${currentUser}`, reqBody);
+        console.log("postWord res:" + res)
     }
 
     //toast function

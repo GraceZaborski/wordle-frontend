@@ -25,8 +25,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
+    "lint": "eslint src",
+    "test": "react-scripts test --watchAll=false",
+    "test:watch": "react-scripts test",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "prettier": "^2.5.1",
     "react-router-dom": "^6.2.1"
   }
 }

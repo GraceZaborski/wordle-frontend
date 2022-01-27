@@ -1,6 +1,5 @@
-import { Container, Flex, Box, Heading, Spacer, HStack, Button, Stack, Select } from "@chakra-ui/react";
-import { render } from "react-dom";
-import { Link, useLocation } from "react-router-dom";
+import { Flex, Box, Heading, Spacer, HStack, Select } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { IUser } from ".././interfaces/IUser"
 
 interface NavbarInterface {
@@ -11,7 +10,6 @@ interface NavbarInterface {
 }
 
 function Navbar({ users, setCurrentUser, setWordArray, currentUser }: NavbarInterface) {
-    const location = useLocation();
 
     const handleUserClick = (user: string) => {
         setWordArray([])

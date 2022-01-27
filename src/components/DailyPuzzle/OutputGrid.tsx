@@ -1,14 +1,13 @@
-import { Box, VStack } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { Box } from '@chakra-ui/react';
+import React from 'react';
 
 interface OutputGridInterface {
     word: string
     wordArray: string[]
-    currentUser: number
 }
 
 function OutputGrid(props: OutputGridInterface) {
-    const { word, wordArray, currentUser } = props
+    const { word, wordArray } = props
 
     const dailyWord = "which"
 
@@ -43,10 +42,13 @@ function OutputGrid(props: OutputGridInterface) {
                 }
             }
             drawAttempt(row, word, true)
-            for (let i = wordArray.length; i < 6; i++) {
-                if (row) {
-                    updateWhiteSpace(row)
-                    row = row.nextSibling
+            if (row) {
+                row = row.nextSibling
+                for (let i = wordArray.length + 1; i < 7; i++) {
+                    if (row) {
+                        updateWhiteSpace(row)
+                        row = row.nextSibling
+                    }
                 }
             }
         }
