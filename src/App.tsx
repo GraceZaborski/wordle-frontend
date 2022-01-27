@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { IUser } from "./interfaces/IUser";
 
-export const baseUrl = "https://wordle-backend-gz.herokuapp.com";
+export const baseUrl = "https://wordle-backend-gz.herokuapp.com"
 
 function App() {
   const [word, setWord] = useState<string>("");
