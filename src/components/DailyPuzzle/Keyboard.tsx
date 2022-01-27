@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import axios from "axios";
-// import { baseUrl } from '../../App'
+import { baseUrl } from '../../App'
 import IProgress from "../../interfaces/IProgress";
 import React, { useState, useCallback, useEffect } from "react";
 import { setSourceMapRange } from "typescript";
@@ -62,8 +62,6 @@ function Keyboard({
     // useEffect(() => {
     //     openModal()
     // }, [user])
-
-    const baseUrl = "http://localhost:4000";
 
     const getUsersGuesses = useCallback(
         async (endpoint: string) => {
