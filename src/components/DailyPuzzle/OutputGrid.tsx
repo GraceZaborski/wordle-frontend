@@ -43,15 +43,15 @@ function OutputGrid(props: OutputGridInterface) {
                 }
             }
             drawAttempt(row, word, true);
-            //   if (row) {
-            //     row = row.nextSibling;
-            //     for (let i = wordArray.length + 1; i < 7; i++) {
-            //       if (row) {
-            //         updateWhiteSpace(row);
-            //         row = row.nextSibling;
-            //       }
-            //     }
-            //   }
+            if (row) {
+                row = row.nextSibling;
+                for (let i = wordArray.length + 1; i < 7; i++) {
+                    if (row) {
+                        updateWhiteSpace(row);
+                        row = row.nextSibling;
+                    }
+                }
+            }
         }
     }
 
