@@ -4,46 +4,46 @@ import OutputGrid from "./DailyPuzzle/OutputGrid";
 import { wordList } from ".././data/data";
 
 interface DailyPuzzleInterface {
-    word: string;
-    setWord: (arg: string) => void;
-    currentUser: number;
-    enter: boolean;
-    setEnter: (arg: boolean) => void;
-    setWordArray: (arg: string[]) => void;
-    wordArray: string[];
+  word: string;
+  setWord: (arg: string) => void;
+  currentUser: number;
+  enter: boolean;
+  setEnter: (arg: boolean) => void;
+  setWordArray: (arg: string[]) => void;
+  wordArray: string[];
 }
 
 function DailyPuzzle({
-    word,
-    setWord,
-    enter,
-    setEnter,
-    wordArray,
-    setWordArray,
-    currentUser,
+  word,
+  setWord,
+  enter,
+  setEnter,
+  wordArray,
+  setWordArray,
+  currentUser,
 }: DailyPuzzleInterface) {
-    return (
-        <div>
-            <VStack>
-                <Box h="500px" pt={10}>
-                    <OutputGrid word={word} wordArray={wordArray} />
-                </Box>
-                <Spacer />
-                <Box>
-                    <Keyboard
-                        word={word}
-                        setWord={setWord}
-                        wordList={wordList}
-                        enter={enter}
-                        setEnter={setEnter}
-                        wordArray={wordArray}
-                        setWordArray={setWordArray}
-                        currentUser={currentUser}
-                    />
-                </Box>
-            </VStack>
-        </div>
-    );
+  return (
+    <div>
+      <VStack>
+        <Box h="500px">
+          <OutputGrid word={word} wordArray={wordArray} />
+        </Box>
+        <Spacer />
+        <Box>
+          <Keyboard
+            word={word}
+            setWord={setWord}
+            wordList={wordList}
+            enter={enter}
+            setEnter={setEnter}
+            wordArray={wordArray}
+            setWordArray={setWordArray}
+            currentUser={currentUser}
+          />
+        </Box>
+      </VStack>
+    </div>
+  );
 }
 
 export default DailyPuzzle;

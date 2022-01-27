@@ -1,5 +1,4 @@
-import { Box } from "@chakra-ui/react";
-import React from "react";
+// import { dailyWord } from "../.././App";
 
 interface OutputGridInterface {
   word: string;
@@ -12,21 +11,24 @@ function OutputGrid(props: OutputGridInterface) {
   const dailyWord = "which";
 
   let grid = document.getElementById("grid") as HTMLElement;
+
   buildGrid();
   updateGrid();
 
   function buildGrid() {
     console.log("building grid");
     if (grid) {
-      for (let i = 0; i < 6; i++) {
-        let row = document.createElement("div");
-        for (let j = 0; j < 5; j++) {
-          let cell = document.createElement("div");
-          cell.className = "cell";
-          cell.textContent = "";
-          row.appendChild(cell);
+      if (document.getElementsByClassName("cell").length < 30) {
+        for (let i = 0; i < 6; i++) {
+          let row = document.createElement("div");
+          for (let j = 0; j < 5; j++) {
+            let cell = document.createElement("div");
+            cell.className = "cell";
+            cell.textContent = "";
+            row.appendChild(cell);
+          }
+          grid.appendChild(row);
         }
-        grid.appendChild(row);
       }
     }
   }
@@ -97,11 +99,7 @@ function OutputGrid(props: OutputGridInterface) {
     return "#b59f3b";
   }
 
-  return (
-    <Box>
-      <div id="grid"></div>
-    </Box>
-  );
+  return <div id="grid"></div>;
 }
 
 export default OutputGrid;
