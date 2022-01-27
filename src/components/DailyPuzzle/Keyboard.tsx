@@ -17,6 +17,7 @@ import axios from "axios";
 import { baseUrl } from "../../App";
 import IProgress from "../../interfaces/IProgress";
 import React, { useState, useCallback, useEffect } from "react";
+// import { dailyWord } from "../.././App";
 
 // const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm']
 //How to avoid using three lines of letters?
@@ -24,6 +25,8 @@ const firstLine = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
 const secondLine = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
 const thirdLine = ["Z", "X", "C", "V", "B", "N", "M"];
 //how to style buttons so you submit styling once
+
+const dailyWord = "which";
 
 interface KeyboardInterface {
   word: string;
@@ -35,8 +38,6 @@ interface KeyboardInterface {
   wordArray: string[];
   currentUser: number;
 }
-
-const dailyWord = "which";
 
 function Keyboard({
   word,

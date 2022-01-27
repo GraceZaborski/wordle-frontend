@@ -25,7 +25,7 @@ function DailyPuzzle({
   return (
     <div>
       <VStack>
-        <Box h="550px" pt={50}>
+        <Box h="500px">
           <OutputGrid word={word} wordArray={wordArray} />
         </Box>
         <Spacer />
