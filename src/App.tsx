@@ -10,7 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { IUser } from "./interfaces/IUser";
 
-export const baseUrl = process.env.REACT_APP_API_URL ?? "https://localhost:4000";
+export const baseUrl =
+  process.env.REACT_APP_API_URL ?? "https://localhost:4000";
 
 function App() {
   const [word, setWord] = useState<string>("");
