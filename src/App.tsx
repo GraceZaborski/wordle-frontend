@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, createContext } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -11,7 +11,9 @@ import axios from "axios";
 import { IUser } from "./interfaces/IUser";
 import { wordList } from "./data/data";
 
+// export const baseUrl = "https://localhost:4000";
 export const baseUrl = "https://wordle-backend-gz.herokuapp.com";
+
 
 function App() {
   const [word, setWord] = useState<string>("");
@@ -37,14 +39,19 @@ function App() {
   // some function which should run once a day
   function runOncePerDay() {
     if (hasOneDayPassed()) {
-      getDailyWord();
-      // deleteData("delete");
+      console.log(getDailyWord());
+      //trigger page refresh
     }
   }
 
-  // const deleteData = useCallback(async (endpoint: string) => {
-  //   const res = await axios.get(`${baseUrl}/${endpoint}`);
-  // }, []);
+
+  const deleteData = useCallback(async (endpoint: string) => {
+    console.log('RUNNINGGG')
+    const res = await axios.delete(`${baseUrl}/${endpoint}`);
+  }, []);
+
+  deleteData("reset");
+
 
   runOncePerDay(); // run the code
 

@@ -72,7 +72,7 @@ function OutputGrid(props: OutputGridInterface) {
       if (attempt[i] !== undefined && isCurrent === true) {
         cell.textContent = attempt[i];
         cell.style.backgroundColor = "#808080";
-      } else if (attempt[i] !== undefined) {
+      } else if (attempt[i] !== undefined && isCurrent === false) {
         cell.textContent = attempt[i];
         cell.style.backgroundColor = getBgColor(attempt, i);
       } else {
