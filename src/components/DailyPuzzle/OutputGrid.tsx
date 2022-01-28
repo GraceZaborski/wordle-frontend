@@ -1,16 +1,12 @@
 // import { dailyWord } from "../.././App";
+import { useGlobalContext } from "../../utils/GlobalContext";
 
-interface OutputGridInterface {
-  word: string;
-  wordArray: string[];
-}
-
-function OutputGrid(props: OutputGridInterface) {
-  const { word, wordArray } = props;
-
-  const dailyWord = "which";
+function OutputGrid() {
+  const dailyWord = "react";
 
   let grid = document.getElementById("grid") as HTMLElement;
+
+  const { word, wordArray } = useGlobalContext();
 
   buildGrid();
   updateGrid();
@@ -72,7 +68,7 @@ function OutputGrid(props: OutputGridInterface) {
       if (attempt[i] !== undefined && isCurrent === true) {
         cell.textContent = attempt[i];
         cell.style.backgroundColor = "#808080";
-      } else if (attempt[i] !== undefined) {
+      } else if (attempt[i] !== undefined && isCurrent === false) {
         cell.textContent = attempt[i];
         cell.style.backgroundColor = getBgColor(attempt, i);
       } else {

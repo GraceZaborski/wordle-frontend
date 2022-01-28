@@ -1,4 +1,4 @@
-// import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Button,
   VStack,
@@ -16,7 +16,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { baseUrl } from "../../App";
 import IProgress from "../../interfaces/IProgress";
-import React, { useState, useCallback, useEffect } from "react";
+import { useGlobalContext } from "../../utils/GlobalContext";
+
 // import { dailyWord } from "../.././App";
 
 // const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm']
@@ -26,41 +27,16 @@ const secondLine = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
 const thirdLine = ["Z", "X", "C", "V", "B", "N", "M"];
 //how to style buttons so you submit styling once
 
-const dailyWord = "which";
+const dailyWord = "react";
 
-interface KeyboardInterface {
-  word: string;
-  setWord: (arg: string) => void;
-  wordList: string[];
-  enter: boolean;
-  setEnter: (arg: boolean) => void;
-  setWordArray: (arg: string[]) => void;
-  wordArray: string[];
-  currentUser: number;
-}
-
-function Keyboard({
-  word,
-  setWord,
-  wordList,
-  wordArray,
-  setWordArray,
-  currentUser,
-}: KeyboardInterface) {
+function Keyboard() {
   const [progress, setProgress] = useState<IProgress[]>([]);
   const [fail, setFail] = useState<boolean>(false);
 
+  const { word, setWord, wordList, wordArray, setWordArray, currentUser } =
+    useGlobalContext();
+
   console.log("Progress:" + progress);
-
-  // const openModal = () => {
-  //     if (user[0].complete === true) {
-  //         onOpen()
-  //     }
-  // }
-
-  // useEffect(() => {
-  //     openModal()
-  // }, [user])
 
   const getUsersGuesses = useCallback(
     async (endpoint: string) => {

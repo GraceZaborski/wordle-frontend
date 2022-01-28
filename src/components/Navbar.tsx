@@ -1,20 +1,11 @@
 import { Flex, Box, Heading, Spacer, HStack, Select } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { IUser } from ".././interfaces/IUser";
+import { useGlobalContext } from "../././utils/GlobalContext";
 
-interface NavbarInterface {
-  users: IUser[];
-  setCurrentUser: (arg: number) => void;
-  setWordArray: (arg: string[]) => void;
-  currentUser: number;
-}
+function Navbar() {
+  const { users, setCurrentUser, setWordArray, currentUser } =
+    useGlobalContext();
 
-function Navbar({
-  users,
-  setCurrentUser,
-  setWordArray,
-  currentUser,
-}: NavbarInterface) {
   const handleUserClick = (user: string) => {
     setWordArray([]);
     console.log("resetting word array");
@@ -36,7 +27,6 @@ function Navbar({
           <Box>
             <Link to="/">Daily Puzzle</Link>
           </Box>
-
           <Box>
             <Link to="scoreboard">Scoreboard</Link>
           </Box>
