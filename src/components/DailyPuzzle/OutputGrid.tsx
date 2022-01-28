@@ -1,16 +1,12 @@
 // import { dailyWord } from "../.././App";
+import { useGlobalContext } from "../../utils/GlobalContext";
 
-interface OutputGridInterface {
-  word: string;
-  wordArray: string[];
-}
-
-function OutputGrid(props: OutputGridInterface) {
-  const { word, wordArray } = props;
-
-  const dailyWord = "which";
+function OutputGrid() {
+  const dailyWord = "react";
 
   let grid = document.getElementById("grid") as HTMLElement;
+
+  const { word, wordArray } = useGlobalContext();
 
   buildGrid();
   updateGrid();
